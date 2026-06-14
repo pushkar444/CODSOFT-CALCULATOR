@@ -1,0 +1,127 @@
+/* Calculator — same minimal palette as the portfolio. */
+
+:root {
+  --paper:   #f6f4ef;
+  --paper-2: #efece3;
+  --ink:     #1b1b19;
+  --muted:   #6f6b62;
+  --line:    #ddd7ca;
+  --accent:  #2f4a3f;
+  --accent-2:#3c6353;
+
+  --serif: "Fraunces", Georgia, serif;
+  --sans:  "Inter", -apple-system, "Segoe UI", Roboto, sans-serif;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--sans);
+  -webkit-font-smoothing: antialiased;
+}
+
+.stage {
+  min-height: 100vh;
+  display: grid;
+  place-items: center;
+  padding: 32px 20px;
+}
+
+.calc {
+  width: 100%;
+  max-width: 340px;
+  background: #fff;
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  padding: 26px 22px 24px;
+  box-shadow: 0 30px 60px -32px rgba(27, 27, 25, 0.5);
+}
+
+.calc-head { margin-bottom: 18px; }
+.calc-head h1 { font-family: var(--serif); font-weight: 600; font-size: 1.3rem; margin: 0; }
+.calc-head p { margin: 4px 0 0; font-size: 0.82rem; color: var(--muted); }
+
+/* display */
+.display {
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 16px 18px;
+  margin-bottom: 18px;
+  text-align: right;
+  overflow: hidden;
+}
+.expr {
+  min-height: 20px;
+  font-size: 0.95rem;
+  color: var(--muted);
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.value {
+  font-family: var(--serif);
+  font-size: 2.4rem;
+  line-height: 1.15;
+  margin-top: 4px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* keypad */
+.keys {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+}
+
+.key {
+  font-family: var(--sans);
+  font-size: 1.15rem;
+  font-weight: 500;
+  color: var(--ink);
+  background: var(--paper-2);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 16px 0;
+  cursor: pointer;
+  transition: transform 0.08s ease, background 0.15s ease, border-color 0.15s ease;
+  user-select: none;
+}
+.key:hover { background: #e7e3d8; }
+.key:active { transform: translateY(1px) scale(0.98); }
+
+.key-fn { color: var(--muted); font-size: 1.05rem; }
+
+.key-op {
+  background: #fff;
+  color: var(--accent);
+  border-color: var(--accent);
+  font-size: 1.3rem;
+}
+.key-op:hover { background: var(--accent); color: #fff; }
+.key-op.active { background: var(--accent); color: #fff; }
+
+.key-zero { grid-column: span 2; }
+
+.key-eq {
+  background: var(--accent);
+  color: #fff;
+  border-color: var(--accent);
+}
+.key-eq:hover { background: var(--accent-2); }
+
+/* a quick flash when the result lands */
+.value.flash { animation: pop 0.18s ease; }
+@keyframes pop { 0% { transform: scale(1.04); } 100% { transform: scale(1); } }
+
+@media (prefers-reduced-motion: reduce) {
+  .key:active { transform: none; }
+  .value.flash { animation: none; }
+}
